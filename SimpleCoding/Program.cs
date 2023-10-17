@@ -30,7 +30,10 @@ class Program
 {
 	static void Main(string[] args)
 	{
-		var track = new Track(1000);
+		Console.OutputEncoding = System.Text.Encoding.Unicode;
+		Console.CursorVisible = false;
+
+		var track = new Track(100);
 
 		Animal golderFish = new GolderFish();
 		Animal salmon = new Salmon();
@@ -62,12 +65,13 @@ class Program
 		track.AddAnimal(horse);
 		track.AddAnimal(wolf);
 
-		track.AddSpace("water", 2);
-		track.AddSpace("land", 3);
-		track.AddSpace("air", 1);
+		track.AddSpace("water", 6, ConsoleColor.DarkBlue);
+		track.AddSpace("land", 4, ConsoleColor.DarkYellow);
+		track.AddSpace("air", 5, ConsoleColor.Gray);
 
 		track.Start();
 
 		Console.ReadKey(); // Пауза
+		/**/
 	}
 }

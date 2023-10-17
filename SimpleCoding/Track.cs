@@ -1,4 +1,6 @@
+
 namespace SimpleCoding;
+
 public class Track
 {
 	public int Distance { get; private set; }
@@ -7,46 +9,88 @@ public class Track
 
 	public Track(int distance)
 	{
-		Distance = distance;
+		this.Distance = distance;
 	}
 
-	public void AddSpace(string type, int duration)
+	public void AddSpace(string type, int duration, ConsoleColor color)
 	{
-		Steps.Add(new Space(type, duration));
+		this.Steps.Add(new Space(type, duration, color));
 	}
 
 	public void AddAnimal(Animal animal)
 	{
-		Animals.Add(animal);
+		this.Animals.Add(animal);
 	}
 
 	public void Start()
 	{
+		// Set the flag to continue the loop
 		bool needToContinue = true;
 
+		// Calculate the end cursor position
+		int endCursorTop = Console.CursorTop + this.Animals.Count;
+
+		// Reset the distance covered for all animals
+		foreach (var animal in Animals)
+		{
+			animal.LastDistanceCovered = 0;
+		}
+
+		// Create a progress bar to display the progress of the animals
+		ProgressBar progressBar = new ProgressBar(this, this.Animals, endCursorTop);
+
+		// Loop until the condition is false
 		while (needToContinue)
 		{
-			foreach (Animal animal in Animals)
+			// Iterate through each step
+			foreach (Space step in Steps)
 			{
-				foreach (var step in Steps)
+				// Iterate through each animal
+				foreach (Animal animal in this.Animals)
 				{
-					animal.Move(step.Type);
-					//? Thread.Sleep(100); ${Distance}
+					// Move the animal and check if it can move
+					bool canMove = animal.Move(step.Type);
+
+					// If the animal can move, update the progress bar
+					if (canMove)
+					{
+						progressBar.UpdateProgressBar(animal, step.Color);
+					}
+
+					// Check if the animal has covered the required distance
+					if (animal.DistanceCovered >= this.Distance)
+					{
+						// Set the flag to stop the loop
+						needToContinue = false;
+						break;
+					}
 				}
 
-				Console.WriteLine($"{animal.Name} пройшов трасу!");
-				animal.MakeSound();
-				Console.WriteLine("");
-
-				if (animal.DistanceCovered >= Distance)
+				// If the flag is false, break the loop
+				if (!needToContinue)
 				{
-					needToContinue = false;
+					break;
 				}
+
+				// Pause for a short duration
+				Thread.Sleep(100);
+
+				// Update the animation symbol of the progress bar
+				progressBar.UpdateAnimationSymbol();
 			}
 		}
 
-		var sortedAnimals = Animals.OrderByDescending(animal => animal.DistanceCovered).ToList();
+		// Set the cursor position
+		Console.SetCursorPosition(0, endCursorTop);
 
+		// Sort the animals based on the distance covered in descending order
+		List<Animal> sortedAnimals = this.Animals.OrderByDescending(animal => animal.DistanceCovered).ToList();
+
+		// Print the table with the sorted animals
+		PrintTable(sortedAnimals);
+	}
+	public static void PrintTable(List<Animal> sortedAnimals)
+	{
 		Console.WriteLine("\nРезультати гонки:");
 
 		Console.ForegroundColor = ConsoleColor.Blue;
@@ -61,7 +105,6 @@ public class Track
 
 		foreach (Animal animal in sortedAnimals)
 		{
-			//                   ? якщо текст коротше чім 14 символів додає пробіли
 			Console.WriteLine($"{animal.Name,-14}\t{animal.DistanceCovered} м");
 		}
 

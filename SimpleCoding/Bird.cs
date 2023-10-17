@@ -16,7 +16,7 @@ public class Crow : Bird
 	public Crow() : base("Ворон")
 	{
 		AddMovingType("land", 2);
-		AddMovingType("air", 15);
+		AddMovingType("air", 5);
 	}
 
 	public override void MakeSound()
@@ -30,7 +30,7 @@ public class Parrot : Bird
 	public Parrot() : base("Папугай")
 	{
 		AddMovingType("land", 1);
-		AddMovingType("air", 10);
+		AddMovingType("air", 4);
 	}
 
 	public override void MakeSound()

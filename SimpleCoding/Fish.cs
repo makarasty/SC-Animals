@@ -15,7 +15,7 @@ public class Tuna : Fish
 {
 	public Tuna() : base("Тунець")
 	{
-		AddMovingType("water", 10);
+		AddMovingType("water", 3);
 	}
 }
 
@@ -23,14 +23,14 @@ public class Salmon : Fish
 {
 	public Salmon() : base("Лосось")
 	{
-		AddMovingType("water", 8);
+		AddMovingType("water", 2);
 	}
 }
 public class GolderFish : Fish
 {
 	public GolderFish() : base("Золота\u2000риба")
 	{
-		AddMovingType("water", 6);
+		AddMovingType("water", 1);
 	}
 }
 
@@ -38,7 +38,7 @@ public class FlyingFish : Fish
 {
 	public FlyingFish() : base("Риба\u2000летяга")
 	{
-		AddMovingType("air", 6);
-		AddMovingType("water", 8);
+		AddMovingType("air", 1);
+		AddMovingType("water", 4);
 	}
 }

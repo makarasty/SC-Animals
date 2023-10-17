@@ -12,8 +12,8 @@ public class Wolf : Mammal
 {
 	public Wolf() : base("Вовк")
 	{
-		AddMovingType("land", 12);
-		AddMovingType("water", 1);
+		AddMovingType("land", 5);
+		AddMovingType("water", 2);
 	}
 
 	public override void MakeSound()
@@ -26,11 +26,10 @@ public class Duck : Mammal
 {
 	public Duck() : base("Качка")
 	{
-		AddMovingType("land", 8);
-		AddMovingType("water", 6);
-		AddMovingType("air", 10);
+		AddMovingType("land", 2);
+		AddMovingType("water", 3);
+		AddMovingType("air", 3);
 	}
-
 	public override void MakeSound()
 	{
 		Console.WriteLine($"{Name} кря кря");
@@ -41,8 +40,8 @@ public class Horse : Mammal
 {
 	public Horse() : base("Конь")
 	{
-		AddMovingType("land", 15);
-		AddMovingType("water", 1);
+		AddMovingType("land", 6);
+		AddMovingType("water", 2);
 	}
 
 	public override void MakeSound()
@@ -55,8 +54,8 @@ public class Hepard : Mammal
 {
 	public Hepard() : base("Гепард")
 	{
-		AddMovingType("land", 20);
-		AddMovingType("water", 3);
+		AddMovingType("land", 8);
+		AddMovingType("water", 1);
 	}
 
 	public override void MakeSound()
